@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "WP9KB4CU1ka2bWYH43oA9cZauMD08JwXjgVnuRJYLflvusVbF/dZdlEf/Te2AB7PDRdzO8oIe8StMb5xsRktJA==",
+  "dgSpecHash": "fFCPv4Fheho4RC949V2MAlLyLXsM8DEYfYR9fIaXMQ3xAx5WAFbH0n3TGvL+2uZwZAq24923A4fajeRVl8vqUw==",
   "success": true,
   "projectFilePath": "D:\\HHProject\\EventManager\\EventManager.Application\\EventManager.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Arseniy\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Arseniy\\.nuget\\packages\\mediatr\\11.0.0\\mediatr.11.0.0.nupkg.sha512",
+    "C:\\Users\\Arseniy\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\Arseniy\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
     "C:\\Users\\Arseniy\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.3\\microsoft.aspnetcore.cryptography.internal.7.0.3.nupkg.sha512",
     "C:\\Users\\Arseniy\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.3\\microsoft.aspnetcore.cryptography.keyderivation.7.0.3.nupkg.sha512",
     "C:\\Users\\Arseniy\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.3\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.3.nupkg.sha512",

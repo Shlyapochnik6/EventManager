@@ -1,4 +1,5 @@
 using System.Reflection;
+using EventManager.Application;
 using EventManager.Application.Common.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
 });
+
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
