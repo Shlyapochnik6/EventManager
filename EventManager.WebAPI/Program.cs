@@ -4,6 +4,7 @@ using EventManager.Application.Common.Mappings;
 using EventManager.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -15,7 +16,7 @@ builder.Services.AddAutoMapper(config =>
 });
 
 builder.Services.AddApplication();
-builder.Services.AddPersistence();
+builder.Services.AddPersistence(configuration);
 
 var app = builder.Build();
 
