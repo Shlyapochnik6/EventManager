@@ -1,6 +1,7 @@
 using System.Reflection;
 using EventManager.Application;
 using EventManager.Application.Common.Mappings;
+using EventManager.Application.Interfaces;
 using EventManager.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+    config.AddProfile(new AssemblyMappingProfile(typeof(IEventManagerDbContext).Assembly));
 });
 
 builder.Services.AddApplication();
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

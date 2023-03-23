@@ -1,5 +1,6 @@
 ﻿using EventManager.Application.Interfaces;
 using EventManager.Domain;
+using EventManager.Persistence.EntityTypeConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,5 +19,14 @@ public class EventManagerDbContext : IdentityDbContext<User, IdentityRole<Guid>,
         base(options)
     {
         Database.Migrate();
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new EventTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new LocationTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new SpeakerTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+        base.OnModelCreating(modelBuilder);
     }
 }
