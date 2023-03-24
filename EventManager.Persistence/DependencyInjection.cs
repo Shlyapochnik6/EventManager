@@ -25,6 +25,7 @@ public static class DependencyInjection
     {
         services.AddIdentity<User, IdentityRole<Guid>>(options =>
         {
+            options.SignIn.RequireConfirmedAccount = false;
             options.Password.RequireDigit = true;
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
@@ -32,7 +33,7 @@ public static class DependencyInjection
             options.Password.RequiredLength = 5;
             options.User.RequireUniqueEmail = true;
             options.User.AllowedUserNameCharacters = null!;
-            options.SignIn.RequireConfirmedEmail = true;
+            options.SignIn.RequireConfirmedEmail = false;
         }).AddEntityFrameworkStores<EventManagerDbContext>();
     }
 }

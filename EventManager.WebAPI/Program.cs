@@ -2,6 +2,7 @@ using System.Reflection;
 using EventManager.Application;
 using EventManager.Application.Common.Mappings;
 using EventManager.Application.Interfaces;
+using EventManager.Identity;
 using EventManager.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddAutoMapper(config =>
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
+builder.Services.AddSecurity(configuration);
 
 var app = builder.Build();
 

@@ -238,6 +238,16 @@ namespace EventManager.Persistence.Migrations
                     { new Guid("00000000-0000-0000-0000-000000000005"), "Brest" },
                     { new Guid("00000000-0000-0000-0000-000000000006"), "Grodno" }
                 });
+            
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "7c45ec11-4635-4449-a9d9-67523e21e0c0", "37e67818-91e1-4f28-af37-2a9f83b3f3ca", "user", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "28d29916-6da2-4d19-9a9f-cb43a0c11d64", "026104bb-2baf-4b63-9d45-43c8f9d5c5e5", "admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
