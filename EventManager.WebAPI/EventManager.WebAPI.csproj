@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\EventManager.Identity\EventManager.Identity.csproj" />
       <ProjectReference Include="..\EventManager.Persistence\EventManager.Persistence.csproj" />
     </ItemGroup>
 
