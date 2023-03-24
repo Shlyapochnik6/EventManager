@@ -22,7 +22,6 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
 builder.Services.AddSecurity(configuration);
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

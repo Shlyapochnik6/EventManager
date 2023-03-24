@@ -38,7 +38,7 @@ public class JwtGenerator : IJwtGenerator
             Issuer = _configuration["JWT:Issuer"],
             Audience = _configuration["JWT:Audience"],
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddMinutes(30),
+            Expires = DateTime.Now.AddMinutes(15),
             SigningCredentials = credentials
         };
         var tokenHandler = new JwtSecurityTokenHandler();

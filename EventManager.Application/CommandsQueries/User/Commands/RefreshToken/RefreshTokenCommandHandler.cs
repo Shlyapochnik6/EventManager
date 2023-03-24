@@ -25,20 +25,12 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, A
     public async Task<AuthenticatedResponse> Handle(RefreshTokenCommand request,
         CancellationToken cancellationToken)
     {
-        if (await GetExistingUser(request, cancellationToken)) 
-            throw new ExistingUserException();
         var user = await _userManager.FindByEmailAsync(request.Email);
+        if (user is null)
+            throw new NotFoundException(request.Email);
         if (ValidateRefreshToken(request, user))
             throw new Exception("Invalid client request");
         return await UpdateUserToken(user);
-    }
-    
-    private async Task<bool> GetExistingUser(RefreshTokenCommand request,
-        CancellationToken cancellationToken)
-    {
-        var existingUser = await _dbContext.Users.AnyAsync(u =>
-            u.Email == request.Email, cancellationToken);
-        return existingUser;
     }
 
     private bool ValidateRefreshToken(RefreshTokenCommand request, 
@@ -56,6 +48,6 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, A
         user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
         await _userManager.UpdateAsync(user);
-        return new AuthenticatedResponse(newRefreshToken, newToken);
+        return new AuthenticatedResponse(newToken, newRefreshToken);
     }
 }

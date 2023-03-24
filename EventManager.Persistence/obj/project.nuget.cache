@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "O/G1yDYVLtJ+piMOE//8NOfkNeiKXHfgU/mR/hcXil+EiR0TbLiDIOVqWkh2DYPoRJ9YABm7k+1JL1BEBCyefQ==",
+  "dgSpecHash": "xBFP2Jh8rnGtjbVtfuDQ3w6rw1gDFJ2ET5nvltnJOrLJSV1nttsCmiA/lG3w3O/KOQPJCYMJ9ed3tOvQZFIADg==",
   "success": true,
   "projectFilePath": "D:\\HHProject\\EventManager\\EventManager.Persistence\\EventManager.Persistence.csproj",
   "expectedPackageFiles": [

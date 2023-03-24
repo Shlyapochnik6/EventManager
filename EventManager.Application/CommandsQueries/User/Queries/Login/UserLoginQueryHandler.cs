@@ -21,7 +21,8 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Authenticat
         _signInManager = signInManager;
     }
     
-    public async Task<AuthenticatedResponse> Handle(UserLoginQuery request, CancellationToken cancellationToken)
+    public async Task<AuthenticatedResponse> Handle(UserLoginQuery request,
+        CancellationToken cancellationToken)
     {
         var user = await GetRegisteredUser(request);
         var result = await _signInManager
@@ -46,6 +47,6 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Authenticat
         user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
         await _userManager.UpdateAsync(user);
-        return new AuthenticatedResponse(newRefreshToken, newToken);
+        return new AuthenticatedResponse(newToken, newRefreshToken);
     }
 }

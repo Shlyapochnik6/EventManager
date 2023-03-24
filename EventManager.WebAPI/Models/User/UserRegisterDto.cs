@@ -1,11 +1,10 @@
 using AutoMapper;
+using EventManager.Application.CommandsQueries.User.Commands.Register;
 using EventManager.Application.Common.Mappings;
-using EventManager.Identity;
-using MediatR;
 
-namespace EventManager.Application.CommandsQueries.User.Commands.Register;
+namespace EventManager.WebAPI.Models.User;
 
-public class UserRegisterCommand : IRequest<Unit>, IMapWith<Domain.User>
+public class UserRegisterDto : IMapWith<UserRegisterCommand>
 {
     public string UserName { get; set; }
     
@@ -15,7 +14,7 @@ public class UserRegisterCommand : IRequest<Unit>, IMapWith<Domain.User>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UserRegisterCommand, Domain.User>()
+        profile.CreateMap<UserRegisterDto, UserRegisterCommand>()
             .ForMember(u => u.UserName,
                 opt => opt.MapFrom(u => u.UserName))
             .ForMember(u => u.Email,
