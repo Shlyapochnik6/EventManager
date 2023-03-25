@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EventManager.Application.CommandsQueries.User.Queries.Login;
 
-public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, AuthenticatedResponse>
+public class UserLoginQueryHandler : IRequestHandler<LoginUserQuery, AuthenticatedResponse>
 {
     private readonly IJwtGenerator _jwtGenerator;
     private readonly UserManager<Domain.User> _userManager;
@@ -21,7 +21,7 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Authenticat
         _signInManager = signInManager;
     }
     
-    public async Task<AuthenticatedResponse> Handle(UserLoginQuery request,
+    public async Task<AuthenticatedResponse> Handle(LoginUserQuery request,
         CancellationToken cancellationToken)
     {
         var user = await GetRegisteredUser(request);
@@ -32,7 +32,7 @@ public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, Authenticat
         throw new Exception(HttpStatusCode.Unauthorized.ToString());
     }
     
-    private async Task<Domain.User> GetRegisteredUser(UserLoginQuery request)
+    private async Task<Domain.User> GetRegisteredUser(LoginUserQuery request)
     {
         var user = await _userManager.FindByEmailAsync(request.Email);
         if (user == null)

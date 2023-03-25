@@ -10,6 +10,10 @@ public class Event
 
     public string Plan { get; set; }
 
+    public DateTime StartTime { get; set; }
+
+    public DateTime EndTime { get; set; }
+
     public Speaker Speaker { get; set; } = new();
 
     public User Organizer { get; set; } = new();

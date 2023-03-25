@@ -4,7 +4,7 @@ using EventManager.Application.Common.Mappings;
 
 namespace EventManager.WebAPI.Models.User;
 
-public class UserRegisterDto : IMapWith<UserRegisterCommand>
+public class UserRegisterDto : IMapWith<RegisterUserCommand>
 {
     public string UserName { get; set; }
     
@@ -14,7 +14,7 @@ public class UserRegisterDto : IMapWith<UserRegisterCommand>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UserRegisterDto, UserRegisterCommand>()
+        profile.CreateMap<UserRegisterDto, RegisterUserCommand>()
             .ForMember(u => u.UserName,
                 opt => opt.MapFrom(u => u.UserName))
             .ForMember(u => u.Email,

@@ -19,10 +19,10 @@ public class UserController : BaseController
 
     [AllowAnonymous]
     [HttpPost("register")]
-    public async Task<IActionResult> Register(
+    public async Task<ActionResult> Register(
         [FromBody] UserRegisterDto dto)
     {
-        var command = Mapper.Map<UserRegisterCommand>(dto);
+        var command = Mapper.Map<RegisterUserCommand>(dto);
         await Mediator.Send(command);
         return Ok();
     }
@@ -32,7 +32,7 @@ public class UserController : BaseController
     public async Task<ActionResult<AuthenticatedResponse>> Login(
         [FromBody] UserLoginDto dto)
     {
-        var query = Mapper.Map<UserLoginQuery>(dto);
+        var query = Mapper.Map<LoginUserQuery>(dto);
         var response = await Mediator.Send(query);
         return Ok(response);
     }
