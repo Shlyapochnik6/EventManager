@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <Folder Include="CommandsQueries\Event\Queries" />
+      <Folder Include="CommandsQueries\Speaker\Queries" />
     </ItemGroup>
 
 </Project>
