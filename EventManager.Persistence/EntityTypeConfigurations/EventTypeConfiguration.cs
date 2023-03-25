@@ -11,11 +11,11 @@ public class EventTypeConfiguration : IEntityTypeConfiguration<Event>
         builder.HasKey(e => e.Id); 
         builder.HasIndex(e => e.Id).IsUnique();
         builder.Property(e => e.Name)
-            .IsRequired().HasMaxLength(75);
+            .IsRequired().HasMaxLength(100);
         builder.Property(e => e.Description)
-            .IsRequired().HasMaxLength(150);
+            .IsRequired().HasMaxLength(255);
         builder.Property(e => e.Plan)
-            .IsRequired().HasMaxLength(150);
+            .IsRequired().HasMaxLength(600);
         builder.HasOne(e => e.Speaker)
             .WithMany(s => s.Events);
         builder.HasOne(e => e.Location)

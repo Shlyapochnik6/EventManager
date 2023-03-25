@@ -11,6 +11,7 @@ public class EventManagerDbContext : IdentityDbContext<User, IdentityRole<Guid>,
     IEventManagerDbContext
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Organizer> Organizers { get; set; }
     public DbSet<Event> Events { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Speaker> Speakers { get; set; }
@@ -27,6 +28,7 @@ public class EventManagerDbContext : IdentityDbContext<User, IdentityRole<Guid>,
         modelBuilder.ApplyConfiguration(new LocationTypeConfiguration());
         modelBuilder.ApplyConfiguration(new SpeakerTypeConfiguration());
         modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new OrganizerTypeConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 }

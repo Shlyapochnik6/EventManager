@@ -16,7 +16,7 @@ public class Event
 
     public Speaker Speaker { get; set; } = new();
 
-    public User Organizer { get; set; } = new();
+    public Organizer Organizer { get; set; } = new();
 
     public Location Location { get; set; } = new();
 }

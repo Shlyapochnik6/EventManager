@@ -1,18 +1,18 @@
-﻿using EventManager.Domain;
+using EventManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EventManager.Persistence.EntityTypeConfigurations;
 
-public class SpeakerTypeConfiguration : IEntityTypeConfiguration<Speaker>
+public class OrganizerTypeConfiguration : IEntityTypeConfiguration<Organizer>
 {
-    public void Configure(EntityTypeBuilder<Speaker> builder)
+    public void Configure(EntityTypeBuilder<Organizer> builder)
     {
-        builder.HasKey(s => s.Id);
+        builder.HasKey(s => s.Id); 
         builder.HasIndex(s => s.Id).IsUnique();
-        builder.Property(s => s.SpeakerName)
+        builder.Property(s => s.OrganizerName)
             .IsRequired().HasMaxLength(75);
         builder.HasMany(s => s.Events)
-            .WithOne(e => e.Speaker);
+            .WithOne(e => e.Organizer);
     }
 }

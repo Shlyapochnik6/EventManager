@@ -12,7 +12,5 @@ public class UserTypeConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(u => u.Id).IsUnique();
         builder.Property(u => u.UserName)
             .IsRequired().HasMaxLength(75);
-        builder.HasMany(u => u.Events)
-            .WithOne(u => u.Organizer);
     }
 }
