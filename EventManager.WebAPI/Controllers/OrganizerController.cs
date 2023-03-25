@@ -1,5 +1,5 @@
 using AutoMapper;
-using EventManager.Application.CommandsQueries.Location.Commands.Create;
+using EventManager.Application.CommandsQueries.Organizer.Commands.Create;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +9,19 @@ namespace EventManager.WebAPI.Controllers;
 [ApiController]
 [Authorize(AuthenticationSchemes = Microsoft.AspNetCore
     .Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
-[Route("api/location")]
-public class LocationController : BaseController
+[Route("api/organizer")]
+public class OrganizerController : BaseController
 {
-    public LocationController(IMapper mapper, IMediator mediator) :
+    public OrganizerController(IMapper mapper, IMediator mediator) : 
         base(mapper, mediator) { }
     
     [HttpPost("create")]
-    public async Task<ActionResult> Create(string cityName)
+    public async Task<ActionResult> Create(string organizerName)
     {
-        var command = new CreateLocationCommand { CityName = cityName };
+        var command = new CreateOrganizerCommand()
+        {
+            OrganizerName = organizerName
+        };
         await Mediator.Send(command);
         return Ok();
     }

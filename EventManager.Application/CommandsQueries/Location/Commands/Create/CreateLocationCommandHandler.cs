@@ -1,6 +1,7 @@
 using AutoMapper;
 using EventManager.Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Application.CommandsQueries.Location.Commands.Create;
 
@@ -19,9 +20,19 @@ public class CreateLocationCommandHandler : IRequestHandler<CreateLocationComman
     public async Task<Unit> Handle(CreateLocationCommand request,
         CancellationToken cancellationToken)
     {
+        var existingLocation = await _dbContext.Locations
+            .FirstOrDefaultAsync(l => l.CityName == request.CityName, cancellationToken);
+        if (existingLocation != null)
+            return Unit.Value;
+        await CreateLocation(request, cancellationToken);
+        return Unit.Value;
+    }
+    
+    private async Task CreateLocation(CreateLocationCommand request,
+        CancellationToken cancellationToken)
+    {
         var location = _mapper.Map<Domain.Location>(request);
         await _dbContext.Locations.AddAsync(location, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
     }
 }
