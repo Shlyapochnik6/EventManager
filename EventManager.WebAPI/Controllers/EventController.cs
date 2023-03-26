@@ -13,8 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventManager.WebAPI.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = Microsoft.AspNetCore
-    .Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/event")]
 public class EventController : BaseController
 {
@@ -25,7 +23,7 @@ public class EventController : BaseController
     [HttpGet("get-by-id/{eventId:guid}")]
     public async Task<ActionResult<GetEventDto>> Get(Guid eventId)
     {
-        var query = new GetEventDtoQuery() { EventId = eventId };
+        var query = new GetEventDtoQuery(eventId);
         var eventDto = await Mediator.Send(query);
         return Ok(eventDto);
     }
@@ -58,7 +56,7 @@ public class EventController : BaseController
     [HttpDelete("{eventId:guid}")]
     public async Task<ActionResult> Delete(Guid eventId)
     {
-        var command = new DeleteEventCommand { EventId = eventId };
+        var command = new DeleteEventCommand(eventId);
         await Mediator.Send(command);
         return Ok();
     }

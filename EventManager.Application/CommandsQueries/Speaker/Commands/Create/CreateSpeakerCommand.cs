@@ -8,6 +8,13 @@ public class CreateSpeakerCommand : IRequest<Unit>, IMapWith<Domain.Speaker>
 {
     public string SpeakerName { get; set; }
 
+    public CreateSpeakerCommand() { }
+
+    public CreateSpeakerCommand(string speakerName)
+    {
+        SpeakerName = speakerName;
+    }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateSpeakerCommand, Domain.Speaker>()

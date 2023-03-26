@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventManager.WebAPI.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = Microsoft.AspNetCore
-    .Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/speaker")]
 public class SpeakerController : BaseController
 {
@@ -18,7 +16,7 @@ public class SpeakerController : BaseController
     [HttpPost]
     public async Task<ActionResult> Create(string speakerName)
     {
-        var command = new CreateSpeakerCommand() { SpeakerName = speakerName };
+        var command = new CreateSpeakerCommand(speakerName);
         await Mediator.Send(command);
         return Ok();
     }

@@ -68,13 +68,13 @@ public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, Uni
     
     private async Task CreateOrganizer(string organizerName)
     {
-        var command = new CreateOrganizerCommand() { OrganizerName = organizerName };
+        var command = new CreateOrganizerCommand(organizerName);
         await _mediator.Send(command);
     }
     
     private async Task CreateLocation(string cityName)
     {
-        var command = new CreateLocationCommand() { CityName = cityName };
+        var command = new CreateLocationCommand(cityName);
         await _mediator.Send(command);
     }
 

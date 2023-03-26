@@ -8,6 +8,13 @@ public class CreateOrganizerCommand : IRequest<Unit>, IMapWith<Domain.Organizer>
 {
     public string OrganizerName { get; set; }
 
+    public CreateOrganizerCommand() { }
+
+    public CreateOrganizerCommand(string organizerName)
+    {
+        OrganizerName = organizerName;
+    }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateOrganizerCommand, Domain.Organizer>()

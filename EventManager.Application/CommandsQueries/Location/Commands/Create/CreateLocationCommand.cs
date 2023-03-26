@@ -8,6 +8,13 @@ public class CreateLocationCommand : IRequest<Unit>, IMapWith<Domain.Location>
 {
     public string CityName { get; set; }
 
+    public CreateLocationCommand() { }
+    
+    public CreateLocationCommand(string cityName)
+    {
+        CityName = cityName;
+    }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateLocationCommand, Domain.Location>()

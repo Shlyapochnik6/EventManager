@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace EventManager.WebAPI.Controllers;
 
 [ApiController]
-[Authorize(AuthenticationSchemes = Microsoft.AspNetCore
-    .Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/organizer")]
 public class OrganizerController : BaseController
 {
@@ -18,10 +16,7 @@ public class OrganizerController : BaseController
     [HttpPost]
     public async Task<ActionResult> Create(string organizerName)
     {
-        var command = new CreateOrganizerCommand()
-        {
-            OrganizerName = organizerName
-        };
+        var command = new CreateOrganizerCommand(organizerName);
         await Mediator.Send(command);
         return Ok();
     }

@@ -1,11 +1,14 @@
 using System.Security.Claims;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EventManager.WebAPI.Controllers;
 
 [ApiController]
+[Authorize(AuthenticationSchemes = Microsoft.AspNetCore
+    .Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
 public class BaseController : ControllerBase
 {
     protected readonly IMapper Mapper;

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EventManager.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddInitialDatabase : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,7 +31,9 @@ namespace EventManager.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    RefreshToken = table.Column<string>(type: "text", nullable: true),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -56,7 +58,7 @@ namespace EventManager.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CityName = table.Column<string>(type: "text", nullable: false)
+                    CityName = table.Column<string>(type: "character varying(75)", maxLength: 75, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,11 +66,23 @@ namespace EventManager.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Organizers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrganizerName = table.Column<string>(type: "character varying(75)", maxLength: 75, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Organizers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Speakers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SpeakerName = table.Column<string>(type: "text", nullable: false)
+                    SpeakerName = table.Column<string>(type: "character varying(75)", maxLength: 75, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,9 +200,11 @@ namespace EventManager.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Plan = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Plan = table.Column<string>(type: "character varying(600)", maxLength: 600, nullable: false),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     SpeakerId = table.Column<Guid>(type: "uuid", nullable: false),
                     OrganizerId = table.Column<Guid>(type: "uuid", nullable: false),
                     LocationId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -197,15 +213,15 @@ namespace EventManager.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_AspNetUsers_OrganizerId",
-                        column: x => x.OrganizerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Events_Locations_LocationId",
                         column: x => x.LocationId,
                         principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Events_Organizers_OrganizerId",
+                        column: x => x.OrganizerId,
+                        principalTable: "Organizers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -215,7 +231,7 @@ namespace EventManager.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-            
+
             migrationBuilder.InsertData(
                 table: "Speakers",
                 columns: new[] { "Id", "SpeakerName" },
@@ -281,9 +297,21 @@ namespace EventManager.Persistence.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Id",
+                table: "AspNetUsers",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Id",
+                table: "Events",
+                column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -300,6 +328,24 @@ namespace EventManager.Persistence.Migrations
                 name: "IX_Events_SpeakerId",
                 table: "Events",
                 column: "SpeakerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Locations_Id",
+                table: "Locations",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Organizers_Id",
+                table: "Organizers",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Speakers_Id",
+                table: "Speakers",
+                column: "Id",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -331,6 +377,9 @@ namespace EventManager.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Locations");
+
+            migrationBuilder.DropTable(
+                name: "Organizers");
 
             migrationBuilder.DropTable(
                 name: "Speakers");
