@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  eventmanager.api:
+    image: eventmanager-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sa
+      POSTGRES_DB: EventManager
+    ports:
+      - "5432:5432"
