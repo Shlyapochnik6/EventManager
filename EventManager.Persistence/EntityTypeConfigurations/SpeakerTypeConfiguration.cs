@@ -14,6 +14,5 @@ public class SpeakerTypeConfiguration : IEntityTypeConfiguration<Speaker>
             .IsRequired().HasMaxLength(75);
         builder.HasMany(s => s.Events)
             .WithOne(e => e.Speaker);
-        
     }
 }

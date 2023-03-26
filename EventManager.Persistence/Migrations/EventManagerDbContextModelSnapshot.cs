@@ -30,27 +30,33 @@ namespace EventManager.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(75)
-                        .HasColumnType("character varying(75)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<Guid>("OrganizerId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Plan")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(600)
+                        .HasColumnType("character varying(600)");
 
                     b.Property<Guid>("SpeakerId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -74,8 +80,8 @@ namespace EventManager.Persistence.Migrations
 
                     b.Property<string>("CityName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(75)
+                        .HasColumnType("character varying(75)");
 
                     b.HasKey("Id");
 
@@ -83,6 +89,25 @@ namespace EventManager.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("EventManager.Domain.Organizer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("OrganizerName")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("character varying(75)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Organizers");
                 });
 
             modelBuilder.Entity("EventManager.Domain.Speaker", b =>
@@ -317,7 +342,7 @@ namespace EventManager.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EventManager.Domain.User", "Organizer")
+                    b.HasOne("EventManager.Domain.Organizer", "Organizer")
                         .WithMany("Events")
                         .HasForeignKey("OrganizerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -392,12 +417,12 @@ namespace EventManager.Persistence.Migrations
                     b.Navigation("Events");
                 });
 
-            modelBuilder.Entity("EventManager.Domain.Speaker", b =>
+            modelBuilder.Entity("EventManager.Domain.Organizer", b =>
                 {
                     b.Navigation("Events");
                 });
 
-            modelBuilder.Entity("EventManager.Domain.User", b =>
+            modelBuilder.Entity("EventManager.Domain.Speaker", b =>
                 {
                     b.Navigation("Events");
                 });

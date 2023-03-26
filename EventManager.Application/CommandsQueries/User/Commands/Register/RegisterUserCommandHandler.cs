@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Application.CommandsQueries.User.Commands.Register;
 
-public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, Unit>
+public class UserRegisterCommandHandler : IRequestHandler<RegisterUserCommand, Unit>
 {
     private readonly IMapper _mapper;
     private readonly IEventManagerDbContext _dbContext;
@@ -22,7 +22,7 @@ public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, U
         _userManager = userManager;
     }
     
-    public async Task<Unit> Handle(UserRegisterCommand request,
+    public async Task<Unit> Handle(RegisterUserCommand request,
         CancellationToken cancellationToken)
     {
         var existingUser = await GetExistingUser(request, cancellationToken);
@@ -32,7 +32,7 @@ public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, U
         return Unit.Value;
     }
     
-    private async Task<bool> GetExistingUser(UserRegisterCommand request, 
+    private async Task<bool> GetExistingUser(RegisterUserCommand request, 
         CancellationToken cancellationToken)
     {
         var existingUser = await _dbContext.Users.AnyAsync(u =>
@@ -40,7 +40,7 @@ public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, U
         return existingUser;
     }
     
-    private async Task RegisterUser(UserRegisterCommand request)
+    private async Task RegisterUser(RegisterUserCommand request)
     {
         var user = _mapper.Map<Domain.User>(request);
         await _userManager.CreateAsync(user, request.Password);

@@ -10,7 +10,7 @@ public class LocationTypeConfiguration : IEntityTypeConfiguration<Location>
     {
         builder.HasKey(l => l.Id);
         builder.HasIndex(l => l.Id).IsUnique();
-        builder.Property(l => l.CityName).IsRequired().HasMaxLength(50);
+        builder.Property(l => l.CityName).IsRequired().HasMaxLength(75);
         builder.HasMany(l => l.Events)
             .WithOne(e => e.Location);
     }

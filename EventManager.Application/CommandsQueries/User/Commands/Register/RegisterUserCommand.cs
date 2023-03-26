@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventManager.Application.CommandsQueries.User.Commands.Register;
 
-public class UserRegisterCommand : IRequest<Unit>, IMapWith<Domain.User>
+public class RegisterUserCommand : IRequest<Unit>, IMapWith<Domain.User>
 {
     public string UserName { get; set; }
     
@@ -15,7 +15,7 @@ public class UserRegisterCommand : IRequest<Unit>, IMapWith<Domain.User>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UserRegisterCommand, Domain.User>()
+        profile.CreateMap<RegisterUserCommand, Domain.User>()
             .ForMember(u => u.UserName,
                 opt => opt.MapFrom(u => u.UserName))
             .ForMember(u => u.Email,

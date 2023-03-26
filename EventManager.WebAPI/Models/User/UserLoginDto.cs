@@ -4,7 +4,7 @@ using EventManager.Application.Common.Mappings;
 
 namespace EventManager.WebAPI.Models.User;
 
-public class UserLoginDto : IMapWith<UserLoginQuery>
+public class UserLoginDto : IMapWith<LoginUserQuery>
 {
     public string Email { get; set; }
     
@@ -12,7 +12,7 @@ public class UserLoginDto : IMapWith<UserLoginQuery>
     
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UserLoginDto, UserLoginQuery>()
+        profile.CreateMap<UserLoginDto, LoginUserQuery>()
             .ForMember(u => u.Email,
                 opt => opt.MapFrom(u => u.Email))
             .ForMember(u => u.Password,
