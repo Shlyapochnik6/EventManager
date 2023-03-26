@@ -15,7 +15,7 @@ public class OrganizerController : BaseController
     public OrganizerController(IMapper mapper, IMediator mediator) : 
         base(mapper, mediator) { }
     
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<ActionResult> Create(string organizerName)
     {
         var command = new CreateOrganizerCommand()

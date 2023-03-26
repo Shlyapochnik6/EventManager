@@ -14,8 +14,8 @@ public class LocationController : BaseController
 {
     public LocationController(IMapper mapper, IMediator mediator) :
         base(mapper, mediator) { }
-    
-    [HttpPost("create")]
+   
+    [HttpPost]
     public async Task<ActionResult> Create(string cityName)
     {
         var command = new CreateLocationCommand { CityName = cityName };
