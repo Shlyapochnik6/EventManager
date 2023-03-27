@@ -55,16 +55,31 @@ builder.Services.AddApplication();
 builder.Services.AddPersistence(configuration);
 builder.Services.AddSecurity(configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", corsPolicy =>
+    {
+        corsPolicy.AllowAnyHeader();
+        corsPolicy.AllowAnyMethod();
+        corsPolicy.AllowAnyOrigin();
+    });
+});
+
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
+
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
